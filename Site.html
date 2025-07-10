@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CGM Motors - Treinamentos</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f8f9fa;
+    }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h1, h2, h3 {
+      text-align: center;
+    }
+    input, button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .course-list button {
+      margin: 10px 0;
+    }
+    .quiz-question {
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container" id="login-page">
+    <h2>Login</h2>
+    <input type="email" placeholder="Email" id="email">
+    <input type="password" placeholder="Senha" id="password">
+    <button onclick="login()">Entrar</button>
+  </div>
+
+  <div class="container" id="main-page" style="display:none;">
+    <h1>CGM Motors</h1>
+    <h2>Treinamentos Disponíveis</h2>
+    <div class="course-list">
+      <button onclick="loadCourse('nr17')">NR-17</button>
+      <button onclick="loadCourse('nr35')">NR-35</button>
+    </div>
+  </div>
+
+  <div class="container" id="course-page" style="display:none;">
+    <button onclick="backToMain()">Voltar</button>
+    <div id="course-content"></div>
+  </div>
+
+  <script>
+    function login() {
+      document.getElementById('login-page').style.display = 'none';
+      document.getElementById('main-page').style.display = 'block';
+    }
+
+    function backToMain() {
+      document.getElementById('course-page').style.display = 'none';
+      document.getElementById('main-page').style.display = 'block';
+    }
+
+    function loadCourse(course) {
+      document.getElementById('main-page').style.display = 'none';
+      document.getElementById('course-page').style.display = 'block';
+
+      let content = '';
+
+      if (course === 'nr17') {
+        content += '<h2>Treinamento NR-17</h2>';
+        content += '<p>A NR-17 trata da ergonomia no ambiente de trabalho...</p>';
+        content += '<h3>Vídeo Aula</h3>';
+        content += '<iframe width="100%" height="315" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe>';
+        content += '<h3>Quiz</h3>';
+        content += `
+          <div class="quiz-question">
+            <p>O que significa ergonomia?</p>
+            <button onclick="checkAnswer(this, true)">Adequação do trabalho ao ser humano</button>
+            <button onclick="checkAnswer(this, false)">Aumento da produtividade a qualquer custo</button>
+            <button onclick="checkAnswer(this, false)">Uso de equipamentos eletrônicos</button>
+          </div>
+        `;
+      } else if (course === 'nr35') {
+        content += '<h2>Treinamento NR-35</h2>';
+        content += '<p>A NR-35 regula o trabalho em altura, visando segurança...</p>';
+        content += '<h3>Vídeo Aula</h3>';
+        content += '<iframe width="100%" height="315" src="https://www.youtube.com/embed/9bZkp7q19f0" frameborder="0" allowfullscreen></iframe>';
+        content += '<h3>Quiz</h3>';
+        content += `
+          <div class="quiz-question">
+            <p>Qual altura mínima caracteriza trabalho em altura?</p>
+            <button onclick="checkAnswer(this, false)">1 metro</button>
+            <button onclick="checkAnswer(this, true)">2 metros</button>
+            <button onclick="checkAnswer(this, false)">3 metros</button>
+          </div>
+        `;
+      }
+
+      document.getElementById('course-content').innerHTML = content;
+    }
+
+    function checkAnswer(button, isCorrect) {
+      if (isCorrect) {
+        button.style.backgroundColor = 'green';
+        alert('Resposta correta!');
+      } else {
+        button.style.backgroundColor = 'red';
+        alert('Resposta incorreta. Tente novamente.');
+      }
+    }
+  </script>
+
+</body>
+</html>
